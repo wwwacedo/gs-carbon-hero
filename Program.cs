@@ -1,5 +1,7 @@
 ﻿using System;
 using CarbonHeroes.Modelos;
+using System.Threading;
+using Spectre.Console;
 
 class Program
 {
@@ -24,8 +26,13 @@ class Program
 			int quantidadeDeLetras = titulo.Length;
 			string asteriscos = string.Empty.PadLeft(quantidadeDeLetras, '*');
 			Console.WriteLine(asteriscos);
-			Console.WriteLine(titulo);
+			AnsiConsole.MarkupLine($"[bold]{titulo}[/]");
 			Console.WriteLine(asteriscos + "\n");
+		}
+
+		void ExibirEmNegrito(string texto)
+		{
+			AnsiConsole.MarkupLine($"[bold]{texto}[/]");
 		}
 
 		void OpcaoInvalida(int tempo)
@@ -87,7 +94,7 @@ class Program
 
 		void IniciarQuiz()
 		{
-
+			
 		}
 
 		void EscreverTextoLetraPorLetra(string texto)
@@ -105,13 +112,11 @@ class Program
 			ExibirLogo();
 			ExibirTituloDaOpcao("Entendendo o Carbon Heroes Quiz");
 
-			EscreverTextoLetraPorLetra("O Carbon Heroes Quiz é uma aplicação interativa projetada para ajudar as pessoas a entender e calcular \nsua pegada de carbono de maneira envolvente e educativa. A pegada de carbono mede o impacto ambiental \ndas atividades diárias de uma pessoa, em termos de emissões de dióxido de carbono (CO2) e outros gases \nde efeito estufa, que contribuem para o aquecimento global e as mudanças climáticas.\n\n");
+			EscreverTextoLetraPorLetra($"O Carbon Heroes Quiz é uma aplicação interativa projetada para ajudar as pessoas a entender e calcular \nsua pegada de carbono de maneira envolvente e educativa. A pegada de carbono mede o impacto ambiental \ndas atividades diárias de uma pessoa, em termos de emissões de dióxido de carbono (CO2) e outros gases \nde efeito estufa, que contribuem para o aquecimento global e as mudanças climáticas.\n\n");
 
-			EscreverTextoLetraPorLetra("No Carbon Heroes Quiz, os participantes respondem a uma série de perguntas sobre diferentes aspectos \nde suas rotinas, como uso de transporte, consumo de energia em casa e hábitos alimentares. Com base \nnas respostas fornecidas, a aplicação calcula a quantidade aproximada de CO2 emitida por cada atividade\n, resultando em uma estimativa da pegada de carbono pessoal do usuário.\n\n");
+			EscreverTextoLetraPorLetra("No Carbon Heroes Quiz, os participantes respondem a uma série de perguntas sobre diferentes aspectos \nde suas rotinas, como uso de transporte, consumo de energia em casa e hábitos alimentares. Com base \nnas respostas fornecidas, a aplicação calcula a quantidade aproximada de CO2 emitida por cada atividade,\n resultando em uma estimativa da pegada de carbono pessoal do usuário.\n\n");
 
-			EscreverTextoLetraPorLetra("A aplicação não só permite que os participantes compreendam melhor o impacto de suas ações no meio \nambiente, mas também transforma essa conscientização em uma experiência gamificada. Os usuários podem \ncomparar seus resultados com os de outros participantes, incentivando a adoção de práticas mais \nsustentáveis e a redução de suas emissões. O **Carbon Heroes Quiz** inspira as pessoas a se tornarem \nverdadeiros 'heróis do carbono', comprometidos com um futuro mais verde e sustentável.\n\n");
-
-			EscreverTextoLetraPorLetra("Seja você um entusiasta da sustentabilidade ou alguém curioso sobre como suas escolhas diárias afetam \no meio ambiente, o **Carbon Heroes Quiz** é a ferramenta ideal para iniciar sua jornada rumo a um \nestilo de vida mais consciente e ecologicamente responsável.\n\n");
+			EscreverTextoLetraPorLetra("A aplicação não só permite que os participantes compreendam melhor o impacto de suas ações no meio \nambiente, mas também transforma essa conscientização em uma experiência gamificada. Os usuários podem \ncomparar seus resultados com os de outros participantes, incentivando a adoção de práticas mais \nsustentáveis e a redução de suas emissões. O Carbon Heroes Quiz inspira as pessoas a se tornarem \nverdadeiros 'heróis do carbono', comprometidos com um futuro mais verde e sustentável.\n\n");
 
 
 			Console.WriteLine("\nPressione qualquer tecla para retornar ao menu inicial...");
