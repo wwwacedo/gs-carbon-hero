@@ -1,6 +1,5 @@
 ﻿using System;
 using CarbonHeroes.Modelos;
-using System.Threading;
 using Spectre.Console;
 
 class Program
@@ -8,9 +7,12 @@ class Program
 	static void Main(string[] args)
 	{
 
+		const int TempoOpcaoInvalida = 800;
+
 		void ExibirLogo()
 		{
-			System.Console.WriteLine(@"
+			Console.Clear();
+			Console.WriteLine(@"
 ░█████╗░░█████╗░██████╗░██████╗░░█████╗░███╗░░██╗  ██╗░░██╗███████╗██████╗░░█████╗░███████╗░██████╗
 ██╔══██╗██╔══██╗██╔══██╗██╔══██╗██╔══██╗████╗░██║  ██║░░██║██╔════╝██╔══██╗██╔══██╗██╔════╝██╔════╝
 ██║░░╚═╝███████║██████╔╝██████╦╝██║░░██║██╔██╗██║  ███████║█████╗░░██████╔╝██║░░██║█████╗░░╚█████╗░
@@ -30,27 +32,20 @@ class Program
 			Console.WriteLine(asteriscos + "\n");
 		}
 
-		void ExibirEmNegrito(string texto)
-		{
-			AnsiConsole.MarkupLine($"[bold]{texto}[/]");
-		}
-
 		void OpcaoInvalida(int tempo)
 		{
-			Console.WriteLine("\nOpção inválida! ");
-			Console.Write("Retornando ao menu inicial");
-			Thread.Sleep(tempo);
-			Console.Write(".");
-			Thread.Sleep(tempo);
-			Console.Write(".");
-			Thread.Sleep(tempo);
-			Console.Write(".");
-			Thread.Sleep(tempo);
+			for (int i = 3; i > 0; i--)
+			{
+				ExibirLogo();
+				AnsiConsole.MarkupLine("[red]Opção inválida![/]");
+				Console.WriteLine($"Retornando em -> {i}");
+				Thread.Sleep(tempo);
+			}
+
 		}
 
 		void ExibirOpcoesDoMenuInicial()
 		{
-			Console.Clear();
 			ExibirLogo();
 			Console.WriteLine("Seja bem-vindo ao Carbon Heroes Quiz!");
 			Console.WriteLine("\nDigite 1 para iniciar o Carbon Hero Quiz");
@@ -70,31 +65,55 @@ class Program
 						EntenderQuiz();
 						break;
 					case -1:
-						Console.Clear();
 						ExibirLogo();
-						Console.WriteLine("\nOK, até a próxima! 🤚\n");
+						Console.WriteLine("OK, até a próxima! 🤚\n");
 						break;
 					default:
-						Console.Clear();
-						ExibirLogo();
-						OpcaoInvalida(500);
+						OpcaoInvalida(TempoOpcaoInvalida);
 						ExibirOpcoesDoMenuInicial();
 						break;
 				}
 			}
 			else
 			{
-				Console.Clear();
-				ExibirLogo();
-				OpcaoInvalida(500);
+				OpcaoInvalida(TempoOpcaoInvalida);
 				ExibirOpcoesDoMenuInicial();
 			}
 		}
 
+		void PressionarTeclaParaContinuar()
+		{
+			Console.WriteLine("\nPressione qualquer tecla para continuar...");
+			Console.ReadKey();
+		}
 
 		void IniciarQuiz()
 		{
-			
+			ExibirLogo();
+			ExibirTituloDaOpcao("Carbon Heroes Quiz");
+			EscreverTextoLetraPorLetra("Ótimo! Vamos começar.");
+			Console.WriteLine();
+
+			// Criar um novo usuário
+			string nome;
+			do
+			{
+				EscreverTextoLetraPorLetra("- Digite seu nome: ");
+				nome = Console.ReadLine()!;
+				if (string.IsNullOrWhiteSpace(nome))
+				{
+					AnsiConsole.MarkupLine("[red]Nome não pode ser vazio. Por favor, digite seu nome.[/]");
+				}
+			} while (string.IsNullOrWhiteSpace(nome));
+			Usuario usuario = new Usuario(nome);
+
+			// Chavencando o usuário antes das perguntas
+			ExibirLogo();
+			ExibirTituloDaOpcao("Carbon Heroes Quiz");
+			EscreverTextoLetraPorLetra($"{usuario.Nome.ToUpper()}, bonito nome! ;) Podemos começar?\n\n");
+			PressionarTeclaParaContinuar();
+
+			// Perguntando sobre o transporte
 		}
 
 		void EscreverTextoLetraPorLetra(string texto)
@@ -108,7 +127,6 @@ class Program
 
 		void EntenderQuiz()
 		{
-			Console.Clear();
 			ExibirLogo();
 			ExibirTituloDaOpcao("Entendendo o Carbon Heroes Quiz");
 
@@ -119,8 +137,7 @@ class Program
 			EscreverTextoLetraPorLetra("A aplicação não só permite que os participantes compreendam melhor o impacto de suas ações no meio \nambiente, mas também transforma essa conscientização em uma experiência gamificada. Os usuários podem \ncomparar seus resultados com os de outros participantes, incentivando a adoção de práticas mais \nsustentáveis e a redução de suas emissões. O Carbon Heroes Quiz inspira as pessoas a se tornarem \nverdadeiros 'heróis do carbono', comprometidos com um futuro mais verde e sustentável.\n\n");
 
 
-			Console.WriteLine("\nPressione qualquer tecla para retornar ao menu inicial...");
-			Console.ReadKey();
+			PressionarTeclaParaContinuar();
 			ExibirOpcoesDoMenuInicial();
 		}
 
