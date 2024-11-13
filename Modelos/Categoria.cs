@@ -4,33 +4,24 @@ namespace CarbonHeroes.Modelos;
 
 internal class Categoria
 {
-	// Propriedades
 	public string Nome { get; set; }
 	public List<Pergunta> Perguntas { get; set; }
+	public int IdPerguntaBooleana { get; set; }
 
-	// Construtor
 	public Categoria(string nome)
 	{
 		Nome = nome;
 		Perguntas = new List<Pergunta>();
 	}
 
-	// Método para adicionar uma pergunta à categoria
-	public void AdicionarPergunta(Pergunta pergunta)
+	public void AdicionarPerguntas(List<Pergunta> perguntas)
 	{
-		if (pergunta != null)
+		foreach (Pergunta pergunta in perguntas)
 		{
 			Perguntas.Add(pergunta);
 		}
-		else
-		{
-			throw new ArgumentNullException(nameof(pergunta), "A pergunta não pode ser nula.");
-		}
 	}
 
-	public override string ToString()
-	{
-		return $"Categoria: {Nome}";
-	}
+	public override string ToString() => $"Categoria: {Nome}";
 }
 

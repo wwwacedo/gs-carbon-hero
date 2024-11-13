@@ -2,34 +2,10 @@ using System;
 
 namespace CarbonHeroes.Modelos;
 
-internal class Usuario
+internal class Usuario(string nome)
 {
-	// Propriedades
-	public string Nome { get; set; }
-	public List<Resposta> Respostas { get; set; }
+	public string Nome { get; set; } = nome;
 
-	// Construtor
-	public Usuario(string nome)
-	{
-		Nome = nome;
-		Respostas = new List<Resposta>();
-	}
+	public override string ToString() => $"Usuário: {Nome}";
 
-	// Método para adicionar uma resposta à lista
-	public void AdicionarResposta(Resposta resposta)
-	{
-		if (resposta != null)
-		{
-			Respostas.Add(resposta);
-		}
-		else
-		{
-			throw new ArgumentNullException(nameof(resposta), "A resposta não pode ser nula.");
-		}
-	}
-
-	public override string ToString()
-	{
-		return $"Usuário: {Nome}";
-	}
 }

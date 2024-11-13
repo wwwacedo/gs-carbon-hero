@@ -2,23 +2,13 @@ using System;
 
 namespace CarbonHeroes.Modelos;
 
-internal class Resposta
+public class Resposta
 {
-	// Propriedades
-	public int PerguntaId { get; set; }
-	public string Valor { get; set; }
+	public double Valor { get; set; }
+	public string? Unidade { get; set; }
 
-	// Construtor
-	public Resposta(int perguntaId, string valor)
+	public Resposta(string? unidade = null)
 	{
-		PerguntaId = perguntaId;
-		Valor = valor;
-	}
-
-	// Método para exibir a resposta
-	public override string ToString()
-	{
-		return $"PerguntaId: {PerguntaId}, Resposta: {Valor}";
+		Unidade = unidade;
 	}
 }
-

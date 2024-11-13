@@ -6,8 +6,43 @@ class Program
 {
 	static void Main(string[] args)
 	{
-
 		const int TempoOpcaoInvalida = 800;
+		Categoria categoria1 = new Categoria("Transporte Individual");
+		Pergunta pergunta1 = new Pergunta(1, "Você possui carro?", TipoPergunta.Booleana);
+		categoria1.IdPerguntaBooleana = pergunta1.Id;
+		Pergunta pergunta2 = new Pergunta(2, "Quantas pessoas em média são transportadas no seu carro?", TipoPergunta.Numerica, "pessoa(s)");
+		Pergunta pergunta3 = new Pergunta(3, "Qual o seu consumo semanal de gasolina (em litros)?", TipoPergunta.Numerica, "litro(s)");
+		Pergunta pergunta4 = new Pergunta(4, "Qual o seu consumo semanal de etanol (em litros)?", TipoPergunta.Numerica, "litro(s)");
+		Pergunta pergunta5 = new Pergunta(5, "Qual o seu consumo semanal de diesel (em litros)?", TipoPergunta.Numerica, "litro(s)");
+		Pergunta pergunta6 = new Pergunta(6, "Qual o seu consumo semanal de GNV (em m3)?", TipoPergunta.Numerica, "metro(s) cúbico(s)");
+		categoria1.AdicionarPerguntas(new List<Pergunta> { pergunta1, pergunta2, pergunta3, pergunta4, pergunta5, pergunta6 });
+
+		Categoria categoria2 = new Categoria("Transporte Coletivo");
+		Pergunta pergunta7 = new Pergunta(7, "Você utiliza ônibus?", TipoPergunta.Booleana);
+		categoria2.IdPerguntaBooleana = pergunta7.Id;
+		Pergunta pergunta8 = new Pergunta(8, "Quantas viagens por semana você faz de ônibus?", TipoPergunta.Numerica, "viagem(ns)");
+		Pergunta pergunta9 = new Pergunta(9, "Quantos km em média por viagem?", TipoPergunta.Numerica, "km");
+		categoria2.AdicionarPerguntas(new List<Pergunta> { pergunta7, pergunta8, pergunta9 });
+
+		Categoria categoria3 = new Categoria("Transporte Coletivo");
+		Pergunta pergunta10 = new Pergunta(10, "Você utiliza metrô?", TipoPergunta.Booleana);
+		categoria3.IdPerguntaBooleana = pergunta10.Id;
+		Pergunta pergunta11 = new Pergunta(11, "Quantas viagens por semana você faz de metrô?", TipoPergunta.Numerica, "viagem(ns)");
+		Pergunta pergunta12 = new Pergunta(12, "Quantos km em média por viagem?", TipoPergunta.Numerica, "km");
+		categoria3.AdicionarPerguntas(new List<Pergunta> { pergunta10, pergunta11, pergunta12 });
+
+		Categoria categoria4 = new Categoria("Transporte Aéreo");
+		Pergunta pergunta13 = new Pergunta(13, "Você viajou de avião nos últimos 12 meses?", TipoPergunta.Booleana);
+		categoria4.IdPerguntaBooleana = pergunta13.Id;
+		Pergunta pergunta14 = new Pergunta(14, "Quantas viagens de curta distância (até 1.000 km) você fez nos últimos 12 meses?", TipoPergunta.Numerica, "viagem(ns)");
+		Pergunta pergunta15 = new Pergunta(15, "Quantas viagens de média distância (1.000 a 3.700 km) você fez nos últimos 12 meses?", TipoPergunta.Numerica, "viagem(ns)");
+		Pergunta pergunta16 = new Pergunta(16, "Quantas viagens de longa distância (mais de 5.000 km) você fez nos últimos 12 meses?", TipoPergunta.Numerica, "viagem(ns)");
+		categoria4.AdicionarPerguntas(new List<Pergunta> { pergunta13, pergunta14, pergunta15, pergunta16 });
+
+		// TO BE CONTINUED
+
+		Quiz quiz = new Quiz();
+		quiz.AdicionarCategoria(categoria1);
 
 		void ExibirLogo()
 		{
@@ -116,7 +151,48 @@ class Program
 			EscreverTextoLetraPorLetra("\nPodemos começar?\n\n");
 			PressionarTeclaParaContinuar();
 
-			// Perguntando sobre o transporte
+			// Iniciando as perguntas
+			foreach (Categoria categoria in quiz.Categorias)
+			{
+				foreach (Pergunta pergunta in categoria.Perguntas)
+				{
+					ExibirLogo();
+					ExibirTituloDaOpcao("Carbon Heroes Quiz");
+					Console.WriteLine($"CATEGORIA '{categoria.Nome.ToUpper()}'\n");
+					while (true)
+					{
+						// Exibir a pergunta
+						EscreverTextoLetraPorLetra(pergunta.ToString());
+						Console.Write("\nResposta: ");
+						// Obter a resposta
+						string valor = Console.ReadLine()!;
+
+						// Validar a resposta com base no tipo da pergunta
+						if (pergunta.Tipo == TipoPergunta.Numerica)
+						{
+							if (!double.TryParse(valor, out _))
+							{
+								AnsiConsole.MarkupLine("[red]Resposta inválida. Por favor, digite um número.[/]");
+								continue;
+							}
+						}
+						else if (pergunta.Tipo == TipoPergunta.Booleana)
+						{
+							if (valor != "1" && valor != "2")
+							{
+								AnsiConsole.MarkupLine("[red]\nResposta inválida. Por favor, digite 1 ou 2.\n[/]");
+								continue;
+							}
+						}
+
+						// Atualizar o valor da resposta na pergunta
+						pergunta.Resposta.Valor = double.Parse(valor);
+						break;	
+					}
+					if (pergunta.Id == categoria.IdPerguntaBooleana && pergunta.Resposta.Valor == 2) break;
+				}
+			}
+			System.Console.WriteLine("\nFim do quiz\n");
 		}
 
 		void EscreverTextoLetraPorLetra(string texto)
