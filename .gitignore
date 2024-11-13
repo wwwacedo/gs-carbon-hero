@@ -60,3 +60,4 @@ coverage/
 secrets.json
 
 .DS_Store
+*.excalidraw

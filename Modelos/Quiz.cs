@@ -21,18 +21,6 @@ internal class Quiz
 		Categorias.Add(categoria);
 	}
 
-
-
-
-
-
-
-
-
-
-
-
-
 	// Método para capturar respostas do participante (opcionalmente detalhado)
 	public void CapturarResposta(int perguntaId, string resposta)
 	{
