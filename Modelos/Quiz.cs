@@ -25,7 +25,14 @@ internal class Quiz
 			{
 				if (pergunta.Resposta.Valor != 0)
 				{
-					allParams += $"&p{pergunta.Id}={pergunta.Resposta.Valor}";
+					if (pergunta.Tipo == TipoPergunta.Booleana)
+					{
+						allParams += $"&p{pergunta.Id}={(pergunta.Resposta.Valor == 1 ? "true" : "false")}";
+					}
+					else
+					{
+						allParams += $"&p{pergunta.Id}={pergunta.Resposta.Valor}";
+					}
 				}
 			}
 		}
