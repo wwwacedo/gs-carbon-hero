@@ -1,5 +1,4 @@
 using System;
-using Spectre.Console;
 
 namespace CarbonHeroes.Modelos;
 
@@ -20,10 +19,20 @@ internal class Pergunta
 
 	public void ExibirInformacoes()
 	{
-		Console.WriteLine($"{Id}. {Texto} - {Resposta} - {Tipo}");
+		Console.Write($"{Id}. {Texto} - ");
+		string resposta = string.Empty;
+		if (Tipo == TipoPergunta.Booleana)
+		{
+			resposta = Resposta.Valor == 1 ? "true" : "false";
+		}
+		else
+		{
+			resposta = $"{Resposta.Valor} {Resposta.Unidade}";
+		}
+		Console.WriteLine($"{resposta}");
 	}
 
-	// Método opcional para exibir a pergunta (para testes/debug)
+
 	public override string ToString()
 	{
 		string texto = $"{Texto} ";

@@ -2,7 +2,7 @@ using System;
 
 namespace CarbonHeroes.Modelos;
 
-public class Resposta
+internal class Resposta
 {
 	public double Valor { get; set; }
 	public string? Unidade { get; set; }

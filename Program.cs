@@ -219,7 +219,9 @@ class Program
 					if (pergunta.Id == categoria.IdPerguntaBooleana && pergunta.Resposta.Valor == 2) break;
 				}
 			}
-			System.Console.WriteLine("\nFim do quiz\n");
+			System.Console.WriteLine("\nResultado do Quiz\n");
+			quiz.GerarLink(usuario);
+			AnsiConsole.MarkupLine($"[green]Link para o resultado: {quiz.Link}[/]");
 		}
 
 		void EscreverTextoLetraPorLetra(string texto)
