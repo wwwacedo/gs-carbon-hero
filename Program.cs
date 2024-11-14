@@ -93,7 +93,7 @@ class Program
 			Console.WriteLine(asteriscos + "\n");
 		}
 
-		void OpcaoInvalida(int tempo)
+		void InformarOpcaoInvalida(int tempo)
 		{
 			for (int i = 3; i > 0; i--)
 			{
@@ -102,6 +102,30 @@ class Program
 				Console.WriteLine($"Retornando em -> {i}");
 				Thread.Sleep(tempo);
 			}
+		}
+
+		void InformarFimDoQuiz(int tempo)
+		{
+			string mensagem = "Aguarde um momento enquanto processamos seu resultado...";
+			for (int i = 0; i < mensagem.Length; i++)
+			{
+				ExibirLogo();
+				AnsiConsole.MarkupLine("[green]Fim do Quiz![/]");
+				Console.WriteLine($"\n{mensagem}\n");
+				string pontos = string.Empty.PadLeft(i, '█');
+				Console.Write(pontos);
+				Thread.Sleep(tempo);
+			}
+			Console.WriteLine(" OK!");
+			Thread.Sleep(1000);
+		}
+
+		void FornecerLinkParaResultado(Quiz quiz)
+		{
+			ExibirLogo();
+			ExibirTituloDaOpcao("Resultado");
+			AnsiConsole.Markup($"[white]Acesse já: [/]");
+			AnsiConsole.Markup($"[cyan]{quiz.Link}[/]\n\n");
 		}
 
 		void ExibirOpcoesDoMenuInicial()
@@ -129,14 +153,14 @@ class Program
 						Console.WriteLine("OK, até a próxima! 🤚\n");
 						break;
 					default:
-						OpcaoInvalida(TempoOpcaoInvalida);
+						InformarOpcaoInvalida(TempoOpcaoInvalida);
 						ExibirOpcoesDoMenuInicial();
 						break;
 				}
 			}
 			else
 			{
-				OpcaoInvalida(TempoOpcaoInvalida);
+				InformarOpcaoInvalida(TempoOpcaoInvalida);
 				ExibirOpcoesDoMenuInicial();
 			}
 		}
@@ -219,9 +243,7 @@ class Program
 					if (pergunta.Id == categoria.IdPerguntaBooleana && pergunta.Resposta.Valor == 2) break;
 				}
 			}
-			System.Console.WriteLine("\nResultado do Quiz\n");
 			quiz.GerarLink(usuario);
-			AnsiConsole.MarkupLine($"[green]Link para o resultado: {quiz.Link}[/]");
 		}
 
 		void EscreverTextoLetraPorLetra(string texto)
@@ -249,8 +271,44 @@ class Program
 			ExibirOpcoesDoMenuInicial();
 		}
 
-		ExibirOpcoesDoMenuInicial();
+		// Início do programa
+		void Iniciar()
+		{
+			while (true)
+			{
+				ExibirOpcoesDoMenuInicial();
+				InformarFimDoQuiz(50);
+				FornecerLinkParaResultado(quiz);
+				Console.WriteLine("Digite 1 para reiniciar o Carbon Heroes Quiz");
+				Console.WriteLine("Digite -1 para sair");
+				Console.Write("\nDigite a sua opção: ");
+				string opcaoEscolhida = Console.ReadLine()!;
 
+				if (int.TryParse(opcaoEscolhida, out int opcaoEscolhidaNumerica))
+				{
+					if (opcaoEscolhidaNumerica == 1)
+					{
+						Iniciar();
+					}
+					else if (opcaoEscolhidaNumerica == -1)
+					{
+						ExibirLogo();
+						Console.WriteLine("OK, até a próxima! 🤚\n");
+						break;
+					}
+					else
+					{
+						InformarOpcaoInvalida(TempoOpcaoInvalida);
+					}
+				}
+				else
+				{
+					InformarOpcaoInvalida(TempoOpcaoInvalida);
+				}
+			}
+		}
+
+		Iniciar();
 	}
 }
 

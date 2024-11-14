@@ -29,7 +29,7 @@ internal class Quiz
 				}
 			}
 		}
-		Link = $"https://localhost:3000/resultado{allParams}";
+		Link = $"http://localhost:3000/resultado{allParams}";
 	}
 
 	public void ExibirInformacoes()
