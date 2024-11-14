@@ -1,4 +1,5 @@
 using System;
+using Spectre.Console;
 
 namespace CarbonHeroes.Modelos;
 
@@ -8,7 +9,6 @@ internal class Pergunta
 	public string Texto { get; }
 	public TipoPergunta Tipo { get; }
 	public Resposta Resposta { get; set; }
-	public float? FatorDeEmissao { get; }
 
 	public Pergunta(int id, string texto, TipoPergunta tipo, string? unidadeResposta = null, float? fator = null)
 	{
@@ -16,18 +16,17 @@ internal class Pergunta
 		Texto = texto;
 		Tipo = tipo;
 		Resposta = new Resposta(unidadeResposta);
-		FatorDeEmissao = fator;
 	}
 
 	public void ExibirInformacoes()
 	{
-		Console.WriteLine($"{Id}. {Texto} - {Resposta} - {Tipo} - {FatorDeEmissao}");
+		Console.WriteLine($"{Id}. {Texto} - {Resposta} - {Tipo}");
 	}
 
 	// Método opcional para exibir a pergunta (para testes/debug)
 	public override string ToString()
 	{
-		string texto = $"PERGUNTA {Id}: {Texto} ";
+		string texto = $"{Texto} ";
 		texto += Tipo == TipoPergunta.Numerica ? "(digite um número)" : "(digite 1 para 'Sim' ou 2 para 'Não')";
 		switch (Tipo)
 		{

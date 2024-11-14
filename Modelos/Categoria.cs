@@ -6,7 +6,7 @@ internal class Categoria
 {
 	public string Nome { get; set; }
 	public List<Pergunta> Perguntas { get; set; }
-	public int IdPerguntaBooleana { get; set; }
+	public int? IdPerguntaBooleana { get; set; }
 
 	public Categoria(string nome)
 	{

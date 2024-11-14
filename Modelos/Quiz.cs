@@ -6,9 +6,12 @@ internal class Quiz
 {
 	public List<Categoria> Categorias { get; set; } = new();
 
-	public void AdicionarCategoria(Categoria categoria)
+	public void AdicionarCategorias(List<Categoria> categorias)
 	{
-		Categorias.Add(categoria);
+		foreach (Categoria categoria in categorias)
+		{
+			Categorias.Add(categoria);
+		}
 	}
 
 }
