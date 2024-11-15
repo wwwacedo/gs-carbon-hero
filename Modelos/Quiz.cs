@@ -5,7 +5,7 @@ namespace CarbonHeroes.Modelos;
 internal class Quiz
 {
 	public List<Categoria> Categorias { get; set; } = new();
-	public string Link { get; set; }
+	public string Link { get; set; } = string.Empty;
 
 	public void AdicionarCategorias(List<Categoria> categorias)
 	{
