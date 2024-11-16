@@ -36,7 +36,7 @@ internal class Quiz
 				}
 			}
 		}
-		Link = $"http://localhost:3000/resultado{allParams}";
+		Link = $"https://carbon-heroes.vercel.app/resultado{allParams}";
 	}
 
 	public void ExibirInformacoes()
