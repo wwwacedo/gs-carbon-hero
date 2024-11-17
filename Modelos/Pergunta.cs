@@ -37,11 +37,9 @@ internal class Pergunta
 	{
 		string texto = $"{Texto} ";
 		texto += Tipo == TipoPergunta.Numerica ? "(digite um número)" : "(digite 1 para 'Sim' ou 2 para 'Não')";
-		switch (Tipo)
+		if (Tipo == TipoPergunta.Booleana)
 		{
-			case TipoPergunta.Booleana:
-				texto += "\n\n1. Sim\n2. Não";
-				break;
+			texto += "\n\n1. Sim\n2. Não";
 		}
 		return texto;
 	}

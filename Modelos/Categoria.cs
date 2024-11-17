@@ -21,7 +21,5 @@ internal class Categoria
 			Perguntas.Add(pergunta);
 		}
 	}
-
-	public override string ToString() => $"Categoria: {Nome}";
 }
 

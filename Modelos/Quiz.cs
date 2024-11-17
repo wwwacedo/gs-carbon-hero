@@ -9,10 +9,7 @@ internal class Quiz
 
 	public void AdicionarCategorias(List<Categoria> categorias)
 	{
-		foreach (Categoria categoria in categorias)
-		{
-			Categorias.Add(categoria);
-		}
+		Categorias.AddRange(categorias);
 	}
 
 	public void GerarLink(Usuario usuario)
@@ -37,18 +34,6 @@ internal class Quiz
 			}
 		}
 		Link = $"https://carbon-heroes.vercel.app/resultado{allParams}";
-	}
-
-	public void ExibirInformacoes()
-	{
-		foreach (Categoria categoria in Categorias)
-		{
-			Console.WriteLine($"\n{categoria.Nome.ToUpper()}\n");
-			foreach (Pergunta pergunta in categoria.Perguntas)
-			{
-				pergunta.ExibirInformacoes();
-			}
-		}
 	}
 }
 
